@@ -61,6 +61,43 @@ public:
 	}
 };
 
+class EncryptedAppTicketListener : public galaxy::api::GlobalEncryptedAppTicketListener {
+public:
+	EncryptedAppTicketListener() {
+	}
+
+	virtual void OnEncryptedAppTicketRetrieveSuccess() override {
+		char data[2048];
+		int size = 0;
+		HLValue v;
+		galaxy::api::User()->GetEncryptedAppTicket(data, 2048, (uint32_t&)size);
+		GALAXY_ERROR();
+		v.Set("data", data);
+		v.Set("size", size);
+		sendEvent(EncryptedAppTicketRetrieveSuccess, v.value);
+	}
+
+	virtual void OnEncryptedAppTicketRetrieveFailure(FailureReason reason) override {
+		HLValue v;
+		v.Set("reason", (int)reason);
+		sendEvent(EncryptedAppTicketRetrieveFailure, v.value);
+	}
+};
+
+class OverlayVisibilityChangeListener : public galaxy::api::GlobalOverlayVisibilityChangeListener {
+public:
+	OverlayVisibilityChangeListener() {
+	}
+
+	virtual void OnOverlayVisibilityChanged( bool visible ) override {
+		HLValue v;
+		v.Set("visible", visible);
+		sendEvent(OverlayVisibilityChanged, v.value);
+	}
+};
+
+
+
 HL_PRIM void HL_NAME(init)(char *id, char *secret, vclosure *eventHandler) {
 	galaxy::api::Init(id, secret, false);
 	GALAXY_ERROR();
@@ -69,6 +106,8 @@ HL_PRIM void HL_NAME(init)(char *id, char *secret, vclosure *eventHandler) {
 	new AuthListener;
 	new UserStatsAndAchievementsRetrieveListener;
 	new StatsAndAchievementsStoreListener;
+	new EncryptedAppTicketListener;
+	new OverlayVisibilityChangeListener;
 	galaxy::api::User()->SignIn();
 	GALAXY_ERROR();
 }
@@ -87,14 +126,19 @@ HL_PRIM bool HL_NAME(is_logged_on)() {
 }
 
 HL_PRIM vbyte *HL_NAME(get_persona_name)() {
-	return (vbyte*)galaxy::api::Friends()->GetPersonaName();
+	const char *r = galaxy::api::Friends()->GetPersonaName();
+	GALAXY_ERROR();
+	return (vbyte*)r;
 }
 
 HL_PRIM vbyte *HL_NAME(get_current_game_language)() {
 	return (vbyte*)galaxy::api::Apps()->GetCurrentGameLanguage();
 }
 
-// TODO Storage
+HL_PRIM void HL_NAME(request_encrypted_app_ticket)( vbyte *data, int size ) {
+	galaxy::api::User()->RequestEncryptedAppTicket( data, size );
+	GALAXY_ERROR();
+}
 
 DEFINE_PRIM(_VOID, init, _BYTES _BYTES _FUN(_VOID, _I32 _DYN));
 DEFINE_PRIM(_VOID, process_data, _NO_ARG);
@@ -102,6 +146,7 @@ DEFINE_PRIM(_BOOL, signed_in, _NO_ARG);
 DEFINE_PRIM(_BOOL, is_logged_on, _NO_ARG);
 DEFINE_PRIM(_BYTES, get_persona_name, _NO_ARG);
 DEFINE_PRIM(_BYTES, get_current_game_language, _NO_ARG);
+DEFINE_PRIM(_VOID, request_encrypted_app_ticket, _BYTES _I32);
 
 // Achievements
 

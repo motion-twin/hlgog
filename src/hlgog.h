@@ -54,6 +54,9 @@ typedef enum {
 	UserStatsAndAchievementsRetrieveFailure,
 	UserStatsAndAchievementsStoreSuccess,
 	UserStatsAndAchievementsStoreFailure,
+	EncryptedAppTicketRetrieveSuccess,
+	EncryptedAppTicketRetrieveFailure,
+	OverlayVisibilityChanged,
 } event_type;
 
 void hlgog_sendEvent(event_type id, vdynamic *v);

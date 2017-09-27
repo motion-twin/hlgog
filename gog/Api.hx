@@ -8,6 +8,9 @@ package gog;
 	var UserStatsAndAchievementsRetrieveFailure = 4;
 	var UserStatsAndAchievementsStoreSuccess  = 5;
 	var UserStatsAndAchievementsStoreFailure  = 6;
+	var EncryptedAppTicketRetrieveSuccess = 7;
+	var EncryptedAppTicketRetrieveFailure = 8;
+	var OverlayVisibilityChanged = 9;
 }
 
 abstract GalaxyID(hl.Bytes) {
@@ -85,6 +88,14 @@ class Api {
 
 	@:hlNative("gog", "get_current_game_language")
 	static function gogGetCurrentGameLanguage() : hl.Bytes { return null; }
+
+	public static function requestEncryptedAppTicket( data : haxe.io.Bytes ){
+		gogRequestEncryptedAppTicket(@:privateAccess data.b, data.length);
+	}
+
+	@:hlNative("gog", "request_encrypted_app_ticket")
+	static function gogRequestEncryptedAppTicket( data : hl.Bytes, size : Int ) : Void { }
+	
 
 	// Achievements
 
