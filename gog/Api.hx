@@ -13,6 +13,14 @@ package gog;
 	var OverlayVisibilityChanged = 9;
 }
 
+@:enum abstract OverlayState(Int) {
+	var Undefined          = 0;
+	var NotSupported       = 1;
+	var Disabled           = 2;
+	var FailedToInitialize = 3;
+	var Initialized        = 4;
+}
+
 abstract GalaxyID(hl.Bytes) {
 	function new(uid) {
 		this = uid;
@@ -96,6 +104,21 @@ class Api {
 	@:hlNative("gog", "request_encrypted_app_ticket")
 	static function gogRequestEncryptedAppTicket( data : hl.Bytes, size : Int ) : Void { }
 	
+	public static function getOverlayState() : OverlayState {
+		return (cast 0:OverlayState);
+	}
+
+	public static function isOverlayVisible() : Bool {
+		return false;
+	}
+
+	public static function showOverlayWithWebPage( url : String ){
+		gogShowOverlayWithWebPage(url.toUtf8());
+	}
+
+	@:hlNative("gog", "show_overlay_with_web_page")
+	static function gogShowOverlayWithWebPage( url : hl.Bytes ) : Void {
+	}
 
 	// Achievements
 

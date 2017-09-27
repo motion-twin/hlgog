@@ -47,6 +47,17 @@ class Test extends hxd.App {
 		gog.Api.init(a[0],a[1]);
 
 		trace( gog.Api.getCurrentGameLanguage() );
+		trace( gog.Api.getOverlayState() );
+		trace( gog.Api.isOverlayVisible() );
+
+		var b = new h2d.Interactive(100,20,s2d);
+		b.backgroundColor = 0xFF0000;
+		b.onClick = function(_){
+			gog.Api.showOverlayWithWebPage("https://github.com/motion-twin/hlgog/");
+		}
+
+		var t = new h2d.Text(hxd.res.DefaultFont.get(), b);
+		t.text = "OpenURL";
 	}
 
 	override function update(dt){
