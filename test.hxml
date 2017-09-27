@@ -1,0 +1,5 @@
+-lib hlgog
+-lib heaps
+-lib hlsdl
+-hl test.hl
+-main test.Test

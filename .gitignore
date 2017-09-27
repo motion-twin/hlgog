@@ -1,0 +1,13 @@
+/Docs
+/Include
+/Licenses
+/Libraries
+/Documentation.html
+/Release
+/ReleaseVS2013
+/Debug
+*.VC.*
+*.user
+/.vs
+/*.hl
+/gog_app.txt

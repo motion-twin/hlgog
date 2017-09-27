@@ -1,0 +1,11 @@
+{
+ "name": "hlgog",
+ "url" : "https://github.com/motion-twin/hlgog",
+ "license": "MIT",
+ "tags": ["gog","galaxy","game","api"],
+ "description": "Hashlink API integration for GOG Galaxy SDK",
+ "version": "1.0.0",
+ "releasenote": "Initial Release",
+ "contributors": ["pperidont"],
+ "dependencies": { }
+}
