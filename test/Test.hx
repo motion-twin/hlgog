@@ -60,9 +60,5 @@ class Test extends hxd.App {
 		t.text = "OpenURL";
 	}
 
-	override function update(dt){
-		gog.Api.processData();
-	}
-
 
 }

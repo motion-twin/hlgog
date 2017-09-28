@@ -125,6 +125,10 @@ HL_PRIM bool HL_NAME(is_logged_on)() {
 	return galaxy::api::User()->IsLoggedOn();
 }
 
+HL_PRIM vuid HL_NAME(get_galaxy_id)() {
+	return hl_of_uint64(galaxy::api::User()->GetGalaxyID().ToUint64());
+}
+
 HL_PRIM vbyte *HL_NAME(get_persona_name)() {
 	const char *r = galaxy::api::Friends()->GetPersonaName();
 	GALAXY_ERROR();
@@ -157,6 +161,7 @@ DEFINE_PRIM(_VOID, init, _BYTES _BYTES _FUN(_VOID, _I32 _DYN));
 DEFINE_PRIM(_VOID, process_data, _NO_ARG);
 DEFINE_PRIM(_BOOL, signed_in, _NO_ARG);
 DEFINE_PRIM(_BOOL, is_logged_on, _NO_ARG);
+DEFINE_PRIM(_UID, get_galaxy_id, _NO_ARG);
 DEFINE_PRIM(_BYTES, get_persona_name, _NO_ARG);
 DEFINE_PRIM(_BYTES, get_current_game_language, _NO_ARG);
 DEFINE_PRIM(_VOID, request_encrypted_app_ticket, _BYTES _I32);

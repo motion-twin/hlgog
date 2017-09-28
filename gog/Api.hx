@@ -53,6 +53,7 @@ class Api {
 	static var listeners : Map<EventType, Array<Dynamic->Void>> = new Map();
 
 	public static function init( id : String, secret : String ){
+		haxe.MainLoop.add(processData);
 		gogInit(id.toUtf8(), secret.toUtf8(), onEvent);
 	}
 
@@ -64,15 +65,16 @@ class Api {
 	}
 
 	static function onEvent( type : EventType, data : Dynamic ){
-		for( f in listeners.get(type) )
-			f(data);
+		if( listeners.exists(type) )
+			for( f in listeners.get(type) )
+				f(data);
 	}
 
 	@:hlNative("gog", "init")
 	static function gogInit( id : hl.Bytes, secret : hl.Bytes, onEvent : EventType -> Dynamic -> Void ){
 	}
 
-	public static function processData() : Void {
+	static function processData() : Void {
 	}
 
 	public static function isLoggedOn() : Bool {
@@ -81,6 +83,10 @@ class Api {
 
 	public static function signedIn() : Bool {
 		return false;
+	}
+
+	public static function getGalaxyId() : GalaxyID {
+		return null;
 	}
 
 	public static function getPersonaName() : String {
