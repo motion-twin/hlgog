@@ -44,7 +44,11 @@ class Test extends hxd.App {
 			trace('OverlayVisibilityChanged d=$d');
 		});
 
-		gog.Api.init(a[0],a[1]);
+		try {
+			gog.Api.init(a[0],a[1]);
+		}catch(e : Dynamic){
+			trace("Warning: GOG Galaxy init failed");
+		}
 
 		trace( gog.Api.getCurrentGameLanguage() );
 		trace( gog.Api.getOverlayState() );

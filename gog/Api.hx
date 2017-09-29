@@ -53,8 +53,8 @@ class Api {
 	static var listeners : Map<EventType, Array<Dynamic->Void>> = new Map();
 
 	public static function init( id : String, secret : String ){
-		haxe.MainLoop.add(processData);
 		gogInit(id.toUtf8(), secret.toUtf8(), onEvent);
+		haxe.MainLoop.add(processData);
 	}
 
 	public static function registerGlobalEvent( type : EventType, cb : Dynamic -> Void ){
