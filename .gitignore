@@ -12,3 +12,5 @@
 /*.hl
 /gog_app.txt
 /dump
+*.o
+*.hdll

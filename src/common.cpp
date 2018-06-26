@@ -99,7 +99,7 @@ public:
 
 
 HL_PRIM void HL_NAME(init)(char *id, char *secret, vclosure *eventHandler) {
-	galaxy::api::Init(id, secret, false);
+	galaxy::api::Init(galaxy::api::InitOptions(id, secret));
 	GALAXY_ERROR();
 	g_eventHandler = eventHandler;
 	hl_add_root(&g_eventHandler);

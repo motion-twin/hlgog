@@ -2,7 +2,7 @@
 #include <hl.h>
 #include <galaxy/GalaxyApi.h>
 
-#define  GALAXY_ERROR() { const galaxy::api::IError *err = galaxy::api::GetError(); if( err != NULL ) hl_error_msg(USTR("Galaxy error: %s"), hl_to_utf16(err->GetName())); }
+#define  GALAXY_ERROR() { const galaxy::api::IError *err = galaxy::api::GetError(); if( err != NULL ) hl_error_msg((const uchar*)USTR("Galaxy error: %s"), hl_to_utf16(err->GetName())); }
 
 typedef vbyte *		vuid;
 #define _UID		_BYTES
