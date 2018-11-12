@@ -176,6 +176,14 @@ HL_PRIM void HL_NAME(set_achievement)( char *name ) {
 	GALAXY_ERROR();
 }
 
+HL_PRIM bool HL_NAME(has_achievement)( char *name ) {
+	bool unlocked;
+	uint32_t unlockTime;
+	galaxy::api::Stats()->GetAchievement(name, unlocked, unlockTime, NULL);
+	GALAXY_ERROR();
+	return unlocked;
+}
+
 HL_PRIM void HL_NAME(clear_achievement)(char *name) {
 	galaxy::api::Stats()->ClearAchievement(name);
 	GALAXY_ERROR();
@@ -202,6 +210,7 @@ HL_PRIM void HL_NAME(store_stats_and_achievements)() {
 }
 
 DEFINE_PRIM(_VOID, set_achievement, _BYTES);
+DEFINE_PRIM(_BOOL, has_achievement, _BYTES);
 DEFINE_PRIM(_VOID, clear_achievement, _BYTES);
 DEFINE_PRIM(_VOID, set_stat_int, _BYTES _I32);
 DEFINE_PRIM(_VOID, set_stat_float, _BYTES _F32);

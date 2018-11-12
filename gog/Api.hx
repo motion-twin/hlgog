@@ -138,6 +138,10 @@ class Api {
 		gogSetAchievement(name.toUtf8());
 	}
 
+	public static function hasAchievement( name :String ) : Bool {
+		return gogHasAchievement(name.toUtf8());
+	}
+
 	public static function clearAchievement( name :String ){
 		gogClearAchievement(name.toUtf8());
 	}
@@ -152,6 +156,9 @@ class Api {
 
 	@:hlNative("gog", "set_achievement")
 	static function gogSetAchievement( name : hl.Bytes ) : Void { }
+
+	@:hlNative("gog", "has_achievement")
+	static function gogHasAchievement( name : hl.Bytes ) : Bool { return false; }
 
 	@:hlNative("gog", "clear_achievement")
 	static function gogClearAchievement( name : hl.Bytes ) : Void { }
