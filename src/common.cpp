@@ -108,7 +108,7 @@ HL_PRIM void HL_NAME(init)(char *id, char *secret, vclosure *eventHandler) {
 	new StatsAndAchievementsStoreListener;
 	new EncryptedAppTicketListener;
 	new OverlayVisibilityChangeListener;
-	galaxy::api::User()->SignIn();
+	galaxy::api::User()->SignInGalaxy();
 	GALAXY_ERROR();
 }
 
@@ -157,6 +157,12 @@ HL_PRIM void HL_NAME(show_overlay_with_web_page)(char *url) {
 	GALAXY_ERROR();
 }
 
+HL_PRIM bool HL_NAME(is_dlc_installed)( vbyte *productId ) {
+	vuint64 pid;
+	memcpy(&(pid.b), productId, 8);
+	return galaxy::api::Apps()->IsDlcInstalled(pid.v);
+}
+
 DEFINE_PRIM(_VOID, init, _BYTES _BYTES _FUN(_VOID, _I32 _DYN));
 DEFINE_PRIM(_VOID, process_data, _NO_ARG);
 DEFINE_PRIM(_BOOL, signed_in, _NO_ARG);
@@ -168,6 +174,7 @@ DEFINE_PRIM(_VOID, request_encrypted_app_ticket, _BYTES _I32);
 DEFINE_PRIM(_BOOL, is_overlay_visible, _NO_ARG);
 DEFINE_PRIM(_I32, get_overlay_state, _NO_ARG);
 DEFINE_PRIM(_VOID, show_overlay_with_web_page, _BYTES);
+DEFINE_PRIM(_BOOL, is_dlc_installed, _BYTES);
 
 // Achievements
 

@@ -126,6 +126,18 @@ class Api {
 	static function gogShowOverlayWithWebPage( url : hl.Bytes ) : Void {
 	}
 
+	public static function isDlcInstalled( productId : haxe.Int64 ){
+		var b = new hl.Bytes(8);
+		b.setI32(0, productId.low);
+		b.setI32(4, productId.high);
+		return gogIsDlcInstalled(b);
+	}
+
+	@:hlNative("gog", "is_dlc_installed")
+	static function gogIsDlcInstalled( productId : hl.Bytes ) : Bool {
+		return false;
+	}
+
 	// Achievements
 
 	public static function storeStatsAndAchievements() : Void {

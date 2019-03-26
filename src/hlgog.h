@@ -4,15 +4,17 @@
 
 #define  GALAXY_ERROR() { const galaxy::api::IError *err = galaxy::api::GetError(); if( err != NULL ) hl_throw(hl_alloc_strbytes((uchar*)(u"Galaxy error: %s"), hl_to_utf16(err->GetName()))); }
 
+
+typedef union {
+	vbyte b[8];
+	uint64 v;
+} vuint64;
 typedef vbyte *		vuid;
 #define _UID		_BYTES
 #define hlt_uid		hlt_bytes
 
 vuid hl_of_uint64(uint64 uid) {
-	union {
-		vbyte b[8];
-		uint64 v;
-	} data;
+	vuint64 data;
 	data.v = uid;
 	return (vuid)hl_copy_bytes(data.b, 8);
 }
