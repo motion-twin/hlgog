@@ -11,7 +11,8 @@ LIBARCH=$(ARCH)
 SDKVER=1.139.2
 ifeq ($(UNAME),Darwin)
 OS=osx
-LIBARCH=
+# universal lib in osx32 dir
+LIBARCH=32
 FNAME=DevelopmentKit_${SDKVER}_Darwin_universal
 else
 OS=linux
@@ -29,16 +30,18 @@ SRC = src/common.o
 prepare:
 	mkdir -p native/lib
 	mkdir -p native/include
-	mkdir -p native/lib/$(OS)$(ARCH)
+	mkdir -p native/lib/$(OS)$(LIBARCH)
 
 	#sdk install
 	rm -rf ../sdk
+	rm ../gog_sdk.tar.gz
+	
 	curl ${SDKURL} -o ../gog_sdk.tar.gz
 	cd ..;  tar zxvf gog_sdk.tar.gz; mv ${FNAME} sdk;
 	
 	cp ../../../hashlink/src/hl.h native/include/
 	rm -rf git/native/lib/$(OS)$(ARCH)
-	cp ../../../hashlink/libhl.dylib native/lib/$(OS)$(ARCH)/
+	cp ../../../hashlink/libhl.dylib native/lib/$(OS)$(LIBARCH)/
 
 all: ${SRC}
 	${CC} ${CFLAGS} -shared -o gog.hdll ${SRC} ${LFLAGS}
