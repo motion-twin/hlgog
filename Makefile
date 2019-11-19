@@ -34,7 +34,7 @@ prepare:
 
 	#sdk install
 	rm -rf ../sdk
-	rm ../gog_sdk.tar.gz
+	rm -f ../gog_sdk.tar.gz
 	
 	curl ${SDKURL} -o ../gog_sdk.tar.gz
 	cd ..;  tar zxvf gog_sdk.tar.gz; mv ${FNAME} sdk;
