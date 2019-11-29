@@ -22,7 +22,7 @@ endif
 SDKVER=1.139.2
 SDKURL="http://cdn.gog.com/open/galaxy/sdk/${SDKVER}/Downloads/${FNAME}.tar.gz"
 
-CFLAGS = -Wall --std=c++11 -O3 -I src -I ../sdk/Include -fPIC
+CFLAGS = -Wall --std=c++11 -O3 -I src -I ../sdk/Include -I native/include -fPIC
 LFLAGS = -lhl -lGalaxy -lstdc++ -L native/lib/$(OS)$(LIBARCH) -L ../sdk/Libraries
 
 SRC = src/common.o
