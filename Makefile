@@ -34,15 +34,15 @@ LFLAGS = -lhl -lGalaxy -lstdc++ -L native/lib/$(OS)$(LIBARCH) -L ../sdk/Librarie
 
 SRC = src/common.o
 
+all: ${SRC}
+	${CC} ${CFLAGS} -shared -o gog.hdll ${SRC} ${LFLAGS}
+
 prepare:
 	rm -rf native/lib/$(OS)$(ARCH)
 	mkdir -p native/include
 	mkdir -p native/lib/$(OS)$(LIBARCH)
 	cp $(HASHLINK_SRC)/src/hl.h native/include/
 	cp $(HASHLINK_SRC)/$(LIBHL) native/lib/$(OS)$(LIBARCH)/
-
-all: ${SRC}
-	${CC} ${CFLAGS} -shared -o gog.hdll ${SRC} ${LFLAGS}
 
 .SUFFIXES : .cpp .o
 
