@@ -77,9 +77,8 @@ class Api {
 	static function processData() : Void {
 	}
 
-	public static function isLoggedOn() : Bool {
-		return false;
-	}
+	@:hlNative("gog", "is_logged_on")
+	public static function isLoggedOn() : Bool { return false; }
 
 	public static function signedIn() : Bool {
 		return false;
